@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report index{% endblock %}
+
+{% block body %}
+
+    <h1>Send CV Statistic</h1>
+
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cv</th>
+                <th>Company</th>
+                <th>Reaction</th>
+                <th>Datetime</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.id }}</td>
+                <td>{{ report.cv }}</td>
+                <td>{{ report.company }}</td>
+                <td>{{ report.reaction ? 'Yes' : 'No' }}</td>
+                <td>{{ report.datetime ? report.datetime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('report_show', {'id': report.id}) }}">show</a>
+                    <a href="{{ path('report_edit', {'id': report.id}) }}">edit</a>
+                    <a href="{{ path('report_delete', {'id': report.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('report_new') }}">Create new</a>
+{% endblock %}
